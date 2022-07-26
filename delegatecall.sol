@@ -6,6 +6,23 @@ pragma solidity ^0.8.15;
 /// This is to avoid the anoyance of the 24kb limit
 /// Question, is this architecture secure?
 
+// @dev need to generate interface
+
+/*
+
+interface I {
+    function f(uint) external (uint);
+}
+
+I impl = I(0x...);
+require(address(impl).code.length > 0);
+(bool sucess, bytes memory ret) = address(impl).delegatecall(abi.encodeWithSelector(I.f.selector, (...));
+require(success);
+uint ret_value = abi.decode(ret, (uint256));
+
+
+*/
+
 contract A {
     uint public a;
     uint public b;
