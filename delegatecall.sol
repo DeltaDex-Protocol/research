@@ -1,9 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.15;
 
-// NOTE: Deploy this contract first
+/// @title Delegatecall test
+/// @dev deploy contract B first, then deploy contract C
+/// This is to avoid the anoyance of the 24kb limit
+/// Question, is this architecture secure?
+
 contract A {
-    // NOTE: storage layout must be the same as contract A
     uint public a;
     uint public b;
     address public DAI;
