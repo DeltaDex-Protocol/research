@@ -22,8 +22,6 @@ uint ret_value = abi.decode(ret, (uint256));
 
 
 */
-
-// NOTE: Deploy this contract first
 contract A {
     uint public a;
     uint public b;
@@ -44,6 +42,7 @@ contract A {
     mapping(address => inputA) public mapA;
 }
 
+// NOTE: Deploy this contract first
 contract B is A {
 
     function getNum() public view returns (uint) {
