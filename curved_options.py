@@ -9,18 +9,23 @@ def BS_root_put(x0, S, K, T, r, sigma):
     _r = r/2
     _sigma = sigma / 2
     z2 = z1 - _sigma * np.sqrt(T)
-    # print((np.exp(-r*T) * TV0*np.sqrt(S/K)), 'sdfsdf')
+    print('z1:', z1)
+    # print((np.exp(-r*T) * TV0*np.sqrt(S/K)), 'part')
     print((np.exp(-0.5 * _sigma**2 * T)))
     second_part = (np.exp(-r*T) * TV0*np.sqrt(S/K)) * (np.exp(-0.5 * _sigma**2 * T)*np.exp(_r*T)) * N(z2)
     print(second_part)
     return first_part - second_part
     
 
-def new_way_BS_delta_root_put(x0, S, K, T, r, sigma):
+def delta_BS_root_put(x0, S, K, T, r, sigma):
     z1 = -(np.log(S/K) + (r - 0.5*sigma**2)*T)/np.sqrt(T)/sigma
     _r = r/2
     _sigma = sigma / 2
     z2 = z1 - _sigma * np.sqrt(T)
+
+    print('part1:', (np.exp(-r*T) * x0 / np.sqrt(K*S)))
+    print('part2:', (np.exp(-0.5 * _sigma**2 * T)*np.exp(_r*T)) * N(z2))
+
     return -(np.exp(-r*T) * x0 / np.sqrt(K*S)) * (np.exp(-0.5 * _sigma**2 * T)*np.exp(_r*T)) * N(z2)
 
 
@@ -47,7 +52,7 @@ def delta_BS_root_call(x0, S, K, T, r, sigma):
     _r = r/2
     _sigma = sigma / 2
     z2 = z1 - _sigma * np.sqrt(T)
-    
+
     return (np.exp(-r*T) * x0 / np.sqrt(K*S)) * (np.exp(-0.5 * _sigma**2 * T)*np.exp(_r*T)) * N(-z2)
     
     
@@ -72,8 +77,9 @@ if __name__ == "__main__":
     aux(arr)
 
 
-    print(BS_root_put(option["x0"], option["S"], option["K"], option["T"], option["r"], option["sigma"]))
+    # print(BS_root_put(option["x0"], option["S"], option["K"], option["T"], option["r"], option["sigma"]))
+    # print(delta_BS_root_put(option["x0"], option["S"], option["K"], option["T"], option["r"], option["sigma"]))
+    print(BS_root_call(option["x0"], option["S"], option["K"], option["T"], option["r"], option["sigma"]))
     
-
-    
+    print(delta_BS_root_call(option["x0"], option["S"], option["K"], option["T"], option["r"], option["sigma"]))
     
