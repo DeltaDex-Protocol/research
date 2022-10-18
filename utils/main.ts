@@ -17,9 +17,13 @@ function arrayToCsv(data: any) {
     .join('\r\n') // rows starting on new lines
 }
 
-getUniStats(ETH_USDC_003, 100).then((res) => {
-  console.log(res)
-  let titles: string[] = ['unix date', 'volume', 'fees']
+const writeUniStats = () => {
+  getUniStats(ETH_USDC_003, 500).then((res) => {
+    console.log(res)
+    let titles: string[] = ['unix date', 'volume', 'fees']
+  
+    writeFileSync('../data/uniStats.csv', titles + '\n' + arrayToCsv(res))
+  })
+}
 
-  writeFileSync('uniStats.csv', titles + '\n' + arrayToCsv(res))
-})
+
