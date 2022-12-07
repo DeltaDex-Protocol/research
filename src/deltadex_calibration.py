@@ -117,7 +117,7 @@ def get_data_from_dfs(day, put:pd.DataFrame, call:pd.DataFrame):
 
 
 
-def get_IV(K, isCall = True, SELECTED_EXPIRY = '29/SEP/23'):
+def calibrate_sabr(SELECTED_EXPIRY = '29/SEP/23'):
     OptionMeta = GetOptionMeta()
     OptionBook = GetOptionBook()
     
@@ -170,7 +170,7 @@ def get_IV(K, isCall = True, SELECTED_EXPIRY = '29/SEP/23'):
         #create sabr calibrator object
         sabr_calib = SABRCalibrator(interest_rate=0.0)
         #call fit function
-        result = sabr_calib.fit_iv(iv, K, F, T, Niter=50, weights=weights, fit_beta=True)
+        result = sabr_calib.fit_iv(iv, K, F, T, Niter=500, weights=weights, fit_beta=True)
         #save fitted model
         sabr = sabr_calib.get_model()
         
@@ -186,16 +186,22 @@ def get_IV(K, isCall = True, SELECTED_EXPIRY = '29/SEP/23'):
     
     
 
-    def get_calibrated_IV(K, T, r=0, isCall=True):
-        S = calls['underlying_price'][0]
-        return sabr(K, S, T, isCall )
+    # def get_calibrated_IV(K, T, isCall=True):
+    #     S = calls['underlying_price'][0]
+    #     return sabr(K, S, T, isCall)
 
+    return sabr, calls['underlying_price'][0]
+    
+    # return get_calibrated_IV(np.array([K]), np.array([day / 365.25]), isCall = True)
+
+
+
+# def get_IV_by_sabr_params(K, T, isCall=True):
+    
+#     sabr_calib = SABRCalibrator(interest_rate=0.0)
+#     sabr = sabr_calib.get_model()
+#     sabr.sabr_params = ...
     
     
-    return get_calibrated_IV(np.array([K]), np.array([day / 365.25]), isCall = True)
-
-
-
-
     
     
