@@ -117,7 +117,7 @@ def get_data_from_dfs(day, put:pd.DataFrame, call:pd.DataFrame):
 
 
 
-def get_IV(S, K, T, isCall = True, SELECTED_EXPIRY = '29/SEP/23'):
+def get_IV(K, isCall = True, SELECTED_EXPIRY = '29/SEP/23'):
     OptionMeta = GetOptionMeta()
     OptionBook = GetOptionBook()
     
@@ -156,7 +156,7 @@ def get_IV(S, K, T, isCall = True, SELECTED_EXPIRY = '29/SEP/23'):
     calls, puts = tuning_dataset(options_data=options_data, selected_expiry=SELECTED_EXPIRY)
     
     
-    day = calls['expiry'][0].day - datetime.date.today().day
+    day = (calls['expiry'][0] - datetime.datetime.strptime((datetime.date.today().isoformat()), "%Y-%m-%d")).days
     
     
     def calib():
@@ -186,10 +186,13 @@ def get_IV(S, K, T, isCall = True, SELECTED_EXPIRY = '29/SEP/23'):
     
     
 
-    def get_calibrated_IV(S, K, T, isCall = True):
-        return sabr(K, S, T, isCall)
+    def get_calibrated_IV(K, T, r=0, isCall=True):
+        S = calls['underlying_price'][0]
+        return sabr(K, S, T, isCall )
+
     
-    return get_calibrated_IV(np.array([S]), np.array([K]), np.array([T]), isCall = True)
+    
+    return get_calibrated_IV(np.array([K]), np.array([day / 365.25]), isCall = True)
 
 
 

@@ -96,8 +96,8 @@ def GetOptionMeta(currency = 'ETH'):
         dictMeta['Strike'].sort()
     return dictMeta
 
-OptionMeta = GetOptionMeta()
-OptionBook = GetOptionBook()
+# OptionMeta = GetOptionMeta()
+# OptionBook = GetOptionBook()
 
 # thisExpiry = "25NOV22"
 
