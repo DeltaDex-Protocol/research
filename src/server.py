@@ -48,22 +48,26 @@ def thread_function(name):
     
     while True:
         print('hi')
-        OptionMeta = GetOptionMeta()['Expiry']
-        expiries = list(map(lambda expiry: (expiry[:-5] + "/" + expiry[-5:-2] + "/" + expiry[-2:]), OptionMeta))
-        print(expiries)
-        print('---')
-        for expiry in expiries:
-            print(expiry)
-            sabr, underlying_price = calibrate_sabr(SELECTED_EXPIRY = expiry)
-            sabrs[expiry] = sabr
-            time.sleep(1)
-        # print(sabr.sabr_params)
-        # print(sabr.sabr_params, underlying_price)
-        time.sleep(10)
+
+        try:
+            OptionMeta = GetOptionMeta()['Expiry']
+            expiries = list(map(lambda expiry: (expiry[:-5] + "/" + expiry[-5:-2] + "/" + expiry[-2:]), OptionMeta))
+            print(expiries)
+            print('---')
+            for expiry in expiries:
+                print(expiry)
+                sabr, underlying_price = calibrate_sabr(SELECTED_EXPIRY = expiry)
+                sabrs[expiry] = sabr
+                time.sleep(1)
+            # print(sabr.sabr_params)
+            # print(sabr.sabr_params, underlying_price)
+            time.sleep(10)
+        except Exception as e:
+            print('exception')
 
         
         
-    logging.info("Thread %s: finishing", name)
+    # logging.info("Thread %s: finishing", name)
 
 
 
@@ -127,7 +131,7 @@ def expirations():
 
 
 
-threading.Thread(target=lambda: app.run(use_reloader=False)).start()
+threading.Thread(target=lambda: app.run(host='0.0.0.0', use_reloader=False)).start()
 
 x = threading.Thread(target=thread_function, args=(1,))
 x.start()
