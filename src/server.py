@@ -114,7 +114,7 @@ def get_option_price():
     
     print(sabrs)
 
-    return jsonify({'data': {'expiry': expiry, 'strike': strike, 'price':price[0], 'implied_volatility':iv[0], 'isCall': isCall}})
+    return jsonify({'data': {'underlying_price': underlying_price, 'expiry': expiry, 'strike': strike, 'price':price[0], 'implied_volatility':iv[0], 'isCall': isCall}})
 
     
 
