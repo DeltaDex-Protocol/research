@@ -35,7 +35,7 @@ underlying_price = None
     
 #     return sabr
 
-TIMEOUT_BETWEEN_CALIBRATIONS = 10
+TIMEOUT_BETWEEN_CALIBRATIONS = 1500
 
 
 def thread_function(name):
